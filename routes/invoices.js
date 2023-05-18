@@ -67,11 +67,9 @@ router.put('/:id', async (req, res, next) => {
         if(!currPaidDate && paid){
             paidDate = new Date();
         } else if (!paid) {
-            paidDate =  null
+            paidDate =  currPaidDate
             paid = false
-        } else {
-            paidDate = currPaidDate
-        }
+        } 
         const results = await db.query(
             `UPDATE invoices
             SET amt=$2, paid=$3, paid_date=$4
