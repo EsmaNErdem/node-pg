@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
         const results = await db.query(`SELECT id, comp_code FROM invoices`);
         if (results.rows.length === 0) {
             throw new ExpressError(`Can't find invoices`, 404)
-          }
+        }
         return res.json({ invoices: results.rows })
     } catch (e) {
         return next(e);
@@ -42,9 +42,9 @@ router.post('/', async (req, res, next) => {
             VALUES ($1, $2) 
             RETURNING id, comp_code, amt, paid, add_date, paid_date`, [comp_code, amt]);
         if (results.rows.length === 0) {
-            throw new ExpressError(`Can't push invoice into database`, 404)
-          }
-        return res.status(201).json({ invoice: results.rows })
+            throw new ExpressError(`Can't push invoice into database`, 404);
+        }
+        return res.status(201).json({ invoice: results.rows[0] });
     } catch (e) {
         return next(e);
     }
